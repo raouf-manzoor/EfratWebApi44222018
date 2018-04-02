@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EfratDataBaseUpdatedModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="EfratDataBaseEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Branches" EntityType="EfratDataBaseUpdatedModel.Branch" />
+    <EntitySet Name="CarsForRents" EntityType="EfratDataBaseUpdatedModel.CarsForRent" />
+    <EntitySet Name="CarsTypes" EntityType="EfratDataBaseUpdatedModel.CarsType" />
+    <EntitySet Name="Photos" EntityType="EfratDataBaseUpdatedModel.Photo" />
+    <EntitySet Name="RentsInfoes" EntityType="EfratDataBaseUpdatedModel.RentsInfo" />
+    <EntitySet Name="sysdiagrams" EntityType="EfratDataBaseUpdatedModel.sysdiagram" />
+    <EntitySet Name="Users" EntityType="EfratDataBaseUpdatedModel.User" />
+    <AssociationSet Name="FK__CarsForRe__Branc__1A14E395" Association="EfratDataBaseUpdatedModel.FK__CarsForRe__Branc__1A14E395">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="CarsForRent" EntitySet="CarsForRents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CarsForRe__TypeI__1B0907CE" Association="EfratDataBaseUpdatedModel.FK__CarsForRe__TypeI__1B0907CE">
+      <End Role="CarsType" EntitySet="CarsTypes" />
+      <End Role="CarsForRent" EntitySet="CarsForRents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RentsInfo__CarID__1BFD2C07" Association="EfratDataBaseUpdatedModel.FK__RentsInfo__CarID__1BFD2C07">
+      <End Role="CarsForRent" EntitySet="CarsForRents" />
+      <End Role="RentsInfo" EntitySet="RentsInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarsType_Photos" Association="EfratDataBaseUpdatedModel.FK_CarsType_Photos">
+      <End Role="Photo" EntitySet="Photos" />
+      <End Role="CarsType" EntitySet="CarsTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Photos" Association="EfratDataBaseUpdatedModel.FK_Users_Photos">
+      <End Role="Photo" EntitySet="Photos" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RentsInfo__UserI__1CF15040" Association="EfratDataBaseUpdatedModel.FK__RentsInfo__UserI__1CF15040">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RentsInfo" EntitySet="RentsInfoes" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(EfratDataBaseUpdatedModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(EfratDataBaseUpdatedModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="BranchID" />
+    </Key>
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BranchName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="latitude_longitude" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="BranchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CarsForRents" Relationship="EfratDataBaseUpdatedModel.FK__CarsForRe__Branc__1A14E395" FromRole="Branch" ToRole="CarsForRent" />
+  </EntityType>
+  <EntityType Name="CarsForRent">
+    <Key>
+      <PropertyRef Name="CarID" />
+    </Key>
+    <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeID" Type="Int32" Nullable="false" />
+    <Property Name="CarNumber" Type="Int32" Nullable="false" />
+    <Property Name="KM" Type="Double" Nullable="false" />
+    <Property Name="GoodForRent" Type="Boolean" Nullable="false" />
+    <Property Name="AvalibleForRent" Type="Boolean" Nullable="false" />
+    <Property Name="BranchID" Type="Int32" Nullable="false" />
+    <Property Name="Available" Type="Boolean" Nullable="false" />
+    <Property Name="Base64Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CostPerDay" Type="Double" Nullable="false" />
+    <Property Name="CostPerDayDelay" Type="Double" Nullable="false" />
+    <Property Name="Gere" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YearOfProduce" Type="Int32" />
+    <Property Name="ManufactorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Branch" Relationship="EfratDataBaseUpdatedModel.FK__CarsForRe__Branc__1A14E395" FromRole="CarsForRent" ToRole="Branch" />
+    <NavigationProperty Name="CarsType" Relationship="EfratDataBaseUpdatedModel.FK__CarsForRe__TypeI__1B0907CE" FromRole="CarsForRent" ToRole="CarsType" />
+    <NavigationProperty Name="RentsInfoes" Relationship="EfratDataBaseUpdatedModel.FK__RentsInfo__CarID__1BFD2C07" FromRole="CarsForRent" ToRole="RentsInfo" />
+  </EntityType>
+  <EntityType Name="CarsType">
+    <Key>
+      <PropertyRef Name="TypeID" />
+    </Key>
+    <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CostPerDay" Type="Double" Nullable="false" />
+    <Property Name="CostPerDayDelay" Type="Double" Nullable="false" />
+    <Property Name="Gere" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YearOfProduce" Type="Int32" />
+    <Property Name="ManufactorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhotoID" Type="Int32" />
+    <NavigationProperty Name="CarsForRents" Relationship="EfratDataBaseUpdatedModel.FK__CarsForRe__TypeI__1B0907CE" FromRole="CarsType" ToRole="CarsForRent" />
+    <NavigationProperty Name="Photo" Relationship="EfratDataBaseUpdatedModel.FK_CarsType_Photos" FromRole="CarsType" ToRole="Photo" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="PhotoID" />
+    </Key>
+    <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Photo1" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="CarsTypes" Relationship="EfratDataBaseUpdatedModel.FK_CarsType_Photos" FromRole="Photo" ToRole="CarsType" />
+    <NavigationProperty Name="Users" Relationship="EfratDataBaseUpdatedModel.FK_Users_Photos" FromRole="Photo" ToRole="User" />
+  </EntityType>
+  <EntityType Name="RentsInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+    <Property Name="CarID" Type="Int32" />
+    <Property Name="TotalCost" Type="Double" />
+    <NavigationProperty Name="CarsForRent" Relationship="EfratDataBaseUpdatedModel.FK__RentsInfo__CarID__1BFD2C07" FromRole="RentsInfo" ToRole="CarsForRent" />
+    <NavigationProperty Name="User" Relationship="EfratDataBaseUpdatedModel.FK__RentsInfo__UserI__1CF15040" FromRole="RentsInfo" ToRole="User" />
+    <Property Name="CurrentKM" Type="Double" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GenderBit" Type="Boolean" />
+    <Property Name="PhotoID" Type="Int32" />
+    <Property Name="Type_Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Base64Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Photo" Relationship="EfratDataBaseUpdatedModel.FK_Users_Photos" FromRole="User" ToRole="Photo" />
+    <NavigationProperty Name="RentsInfoes" Relationship="EfratDataBaseUpdatedModel.FK__RentsInfo__UserI__1CF15040" FromRole="User" ToRole="RentsInfo" />
+  </EntityType>
+  <Association Name="FK__CarsForRe__Branc__1A14E395">
+    <End Type="EfratDataBaseUpdatedModel.Branch" Role="Branch" Multiplicity="1" />
+    <End Type="EfratDataBaseUpdatedModel.CarsForRent" Role="CarsForRent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchID" />
+      </Principal>
+      <Dependent Role="CarsForRent">
+        <PropertyRef Name="BranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CarsForRe__TypeI__1B0907CE">
+    <End Type="EfratDataBaseUpdatedModel.CarsType" Role="CarsType" Multiplicity="1" />
+    <End Type="EfratDataBaseUpdatedModel.CarsForRent" Role="CarsForRent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarsType">
+        <PropertyRef Name="TypeID" />
+      </Principal>
+      <Dependent Role="CarsForRent">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RentsInfo__CarID__1BFD2C07">
+    <End Type="EfratDataBaseUpdatedModel.CarsForRent" Role="CarsForRent" Multiplicity="0..1" />
+    <End Type="EfratDataBaseUpdatedModel.RentsInfo" Role="RentsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarsForRent">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="RentsInfo">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarsType_Photos">
+    <End Type="EfratDataBaseUpdatedModel.Photo" Role="Photo" Multiplicity="0..1" />
+    <End Type="EfratDataBaseUpdatedModel.CarsType" Role="CarsType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photo">
+        <PropertyRef Name="PhotoID" />
+      </Principal>
+      <Dependent Role="CarsType">
+        <PropertyRef Name="PhotoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Photos">
+    <End Type="EfratDataBaseUpdatedModel.Photo" Role="Photo" Multiplicity="0..1" />
+    <End Type="EfratDataBaseUpdatedModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Photo">
+        <PropertyRef Name="PhotoID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="PhotoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RentsInfo__UserI__1CF15040">
+    <End Type="EfratDataBaseUpdatedModel.User" Role="User" Multiplicity="1" />
+    <End Type="EfratDataBaseUpdatedModel.RentsInfo" Role="RentsInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RentsInfo">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
